@@ -1,0 +1,68 @@
+{
+  "kind": "collectionType",
+  "collectionName": "usuarios",
+  "info": {
+    "singularName": "usuario",
+    "pluralName": "usuarios",
+    "displayName": "usuario",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "apellido": {
+      "type": "string"
+    },
+    "ocupacion": {
+      "type": "string"
+    },
+    "edad": {
+      "type": "integer"
+    },
+    "correo": {
+      "type": "email"
+    },
+    "password": {
+      "type": "password",
+      "required": true,
+      "minLength": 6,
+      "maxLength": 12,
+      "private": true
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "fotoPerfil": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "nombres": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::actividad.actividad",
+      "mappedBy": "comentario"
+    },
+    "rol": {
+      "type": "string"
+    },
+    "comentarios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comentario.comentario",
+      "mappedBy": "usuario"
+    }
+  }
+}

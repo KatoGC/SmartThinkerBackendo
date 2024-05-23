@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lecciones",
+  "info": {
+    "singularName": "leccion",
+    "pluralName": "lecciones",
+    "displayName": "leccion"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "contenido": {
+      "type": "text"
+    },
+    "orden": {
+      "type": "integer"
+    },
+    "curso": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::curso.curso",
+      "inversedBy": "lecciones"
+    }
+  }
+}
