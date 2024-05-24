@@ -21,10 +21,11 @@
     "fechaCreacion": {
       "type": "date"
     },
-    "instructor": {
+    "usuarioInstructor": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::usuario.usuario"
+      "target": "api::usuario.usuario",
+      "inversedBy": "cursoInstructor"
     },
     "lecciones": {
       "type": "relation",
@@ -32,11 +33,17 @@
       "target": "api::leccion.leccion",
       "mappedBy": "curso"
     },
-    "categorias": {
+    "comentarios": {
       "type": "relation",
       "relation": "oneToMany",
+      "target": "api::comentario.comentario",
+      "mappedBy": "cursosComentario"
+    },
+    "categorias": {
+      "type": "relation",
+      "relation": "manyToMany",
       "target": "api::categoria.categoria",
-      "mappedBy": "nombres"
+      "mappedBy": "cursosCateogoria"
     }
   }
 }

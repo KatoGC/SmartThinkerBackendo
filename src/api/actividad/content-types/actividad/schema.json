@@ -4,7 +4,8 @@
   "info": {
     "singularName": "actividad",
     "pluralName": "actividades",
-    "displayName": "Actividades"
+    "displayName": "actividades",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -20,16 +21,17 @@
     "fechaCreacion": {
       "type": "date"
     },
-    "usuarioCreador": {
+    "comentarios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comentario.comentario",
+      "mappedBy": "actividadesComentarios"
+    },
+    "usuario_creador": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::usuario.usuario"
-    },
-    "comentario": {
-      "type": "relation",
-      "relation": "manyToOne",
       "target": "api::usuario.usuario",
-      "inversedBy": "nombres"
+      "mappedBy": "actividadCreador"
     }
   }
 }

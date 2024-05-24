@@ -19,9 +19,6 @@
     "apellido": {
       "type": "string"
     },
-    "ocupacion": {
-      "type": "string"
-    },
     "edad": {
       "type": "integer"
     },
@@ -30,10 +27,7 @@
     },
     "password": {
       "type": "password",
-      "required": true,
-      "minLength": 6,
-      "maxLength": 12,
-      "private": true
+      "required": false
     },
     "descripcion": {
       "type": "text"
@@ -49,20 +43,66 @@
         "audios"
       ]
     },
-    "nombres": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::actividad.actividad",
-      "mappedBy": "comentario"
-    },
     "rol": {
-      "type": "string"
+      "type": "enumeration",
+      "enum": [
+        "Estudiante",
+        "Profesor",
+        "Administrador"
+      ]
     },
-    "comentarios": {
+    "ocupacion": {
+      "type": "enumeration",
+      "enum": [
+        "Ingeniero de Software",
+        "Médico",
+        "Profesor",
+        "Estudiante",
+        "Abogado",
+        "Diseñador Gráfico",
+        "Contador",
+        "Administrador de Empresas",
+        "Enfermero",
+        "Psicólogo",
+        "Arquitecto",
+        "Científico",
+        "Escritor",
+        "Periodista",
+        "Músico",
+        "Artista",
+        "Consultor",
+        "Gerente de Proyecto",
+        "Analista de Datos",
+        "Desarrollador Web",
+        "Marketing",
+        "Recursos Humanos",
+        "Ventas",
+        "Chef",
+        "Electricista",
+        "Fontanero",
+        "Carpintero",
+        "Piloto",
+        "Mecánico",
+        "Veterinario"
+      ]
+    },
+    "actividadCreador": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::actividad.actividad",
+      "inversedBy": "usuario_creador"
+    },
+    "usuarioComentarios": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comentario.comentario",
-      "mappedBy": "usuario"
+      "mappedBy": "usuarioComentario"
+    },
+    "cursoInstructor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::curso.curso",
+      "mappedBy": "usuarioInstructor"
     }
   }
 }

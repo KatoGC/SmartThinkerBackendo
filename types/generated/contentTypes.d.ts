@@ -793,7 +793,8 @@ export interface ApiActividadActividad extends Schema.CollectionType {
   info: {
     singularName: 'actividad';
     pluralName: 'actividades';
-    displayName: 'Actividades';
+    displayName: 'actividades';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -802,14 +803,14 @@ export interface ApiActividadActividad extends Schema.CollectionType {
     titulo: Attribute.String;
     descripcion: Attribute.Text;
     fechaCreacion: Attribute.Date;
-    usuarioCreador: Attribute.Relation<
+    comentarios: Attribute.Relation<
+      'api::actividad.actividad',
+      'oneToMany',
+      'api::comentario.comentario'
+    >;
+    usuario_creador: Attribute.Relation<
       'api::actividad.actividad',
       'oneToOne',
-      'api::usuario.usuario'
-    >;
-    comentario: Attribute.Relation<
-      'api::actividad.actividad',
-      'manyToOne',
       'api::usuario.usuario'
     >;
     createdAt: Attribute.DateTime;
@@ -835,17 +836,18 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
   info: {
     singularName: 'categoria';
     pluralName: 'categorias';
-    displayName: 'Categoria';
+    displayName: 'categoria';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    nombre: Attribute.String;
     descripcion: Attribute.Text;
-    nombres: Attribute.Relation<
+    nombre: Attribute.String;
+    cursosCateogoria: Attribute.Relation<
       'api::categoria.categoria',
-      'manyToOne',
+      'manyToMany',
       'api::curso.curso'
     >;
     createdAt: Attribute.DateTime;
@@ -872,18 +874,29 @@ export interface ApiComentarioComentario extends Schema.CollectionType {
     singularName: 'comentario';
     pluralName: 'comentarios';
     displayName: 'comentario';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     contenido: Attribute.Text;
-    usuario: Attribute.Relation<
+    usuarioComentario: Attribute.Relation<
       'api::comentario.comentario',
       'manyToOne',
       'api::usuario.usuario'
     >;
     fechaCreacion: Attribute.Date;
+    cursosComentario: Attribute.Relation<
+      'api::comentario.comentario',
+      'manyToOne',
+      'api::curso.curso'
+    >;
+    actividadesComentarios: Attribute.Relation<
+      'api::comentario.comentario',
+      'manyToOne',
+      'api::actividad.actividad'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -917,7 +930,7 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     titulo: Attribute.String;
     descripcion: Attribute.Text;
     fechaCreacion: Attribute.Date;
-    instructor: Attribute.Relation<
+    usuarioInstructor: Attribute.Relation<
       'api::curso.curso',
       'oneToOne',
       'api::usuario.usuario'
@@ -927,9 +940,14 @@ export interface ApiCursoCurso extends Schema.CollectionType {
       'oneToMany',
       'api::leccion.leccion'
     >;
-    categorias: Attribute.Relation<
+    comentarios: Attribute.Relation<
       'api::curso.curso',
       'oneToMany',
+      'api::comentario.comentario'
+    >;
+    categorias: Attribute.Relation<
+      'api::curso.curso',
+      'manyToMany',
       'api::categoria.categoria'
     >;
     createdAt: Attribute.DateTime;
@@ -1001,28 +1019,60 @@ export interface ApiUsuarioUsuario extends Schema.CollectionType {
   attributes: {
     nombre: Attribute.String & Attribute.Required;
     apellido: Attribute.String;
-    ocupacion: Attribute.String;
     edad: Attribute.Integer;
     correo: Attribute.Email;
-    password: Attribute.Password &
-      Attribute.Required &
-      Attribute.Private &
-      Attribute.SetMinMaxLength<{
-        minLength: 6;
-        maxLength: 12;
-      }>;
+    password: Attribute.Password;
     descripcion: Attribute.Text;
     fotoPerfil: Attribute.Media;
-    nombres: Attribute.Relation<
+    rol: Attribute.Enumeration<['Estudiante', 'Profesor', 'Administrador']>;
+    ocupacion: Attribute.Enumeration<
+      [
+        'Ingeniero de Software',
+        'M\u00E9dico',
+        'Profesor',
+        'Estudiante',
+        'Abogado',
+        'Dise\u00F1ador Gr\u00E1fico',
+        'Contador',
+        'Administrador de Empresas',
+        'Enfermero',
+        'Psic\u00F3logo',
+        'Arquitecto',
+        'Cient\u00EDfico',
+        'Escritor',
+        'Periodista',
+        'M\u00FAsico',
+        'Artista',
+        'Consultor',
+        'Gerente de Proyecto',
+        'Analista de Datos',
+        'Desarrollador Web',
+        'Marketing',
+        'Recursos Humanos',
+        'Ventas',
+        'Chef',
+        'Electricista',
+        'Fontanero',
+        'Carpintero',
+        'Piloto',
+        'Mec\u00E1nico',
+        'Veterinario'
+      ]
+    >;
+    actividadCreador: Attribute.Relation<
       'api::usuario.usuario',
-      'oneToMany',
+      'oneToOne',
       'api::actividad.actividad'
     >;
-    rol: Attribute.String;
-    comentarios: Attribute.Relation<
+    usuarioComentarios: Attribute.Relation<
       'api::usuario.usuario',
       'oneToMany',
       'api::comentario.comentario'
+    >;
+    cursoInstructor: Attribute.Relation<
+      'api::usuario.usuario',
+      'oneToOne',
+      'api::curso.curso'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

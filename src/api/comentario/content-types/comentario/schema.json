@@ -4,7 +4,8 @@
   "info": {
     "singularName": "comentario",
     "pluralName": "comentarios",
-    "displayName": "comentario"
+    "displayName": "comentario",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,14 +15,26 @@
     "contenido": {
       "type": "text"
     },
-    "usuario": {
+    "usuarioComentario": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::usuario.usuario",
-      "inversedBy": "comentarios"
+      "inversedBy": "usuarioComentarios"
     },
     "fechaCreacion": {
       "type": "date"
+    },
+    "cursosComentario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::curso.curso",
+      "inversedBy": "comentarios"
+    },
+    "actividadesComentarios": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::actividad.actividad",
+      "inversedBy": "comentarios"
     }
   }
 }
