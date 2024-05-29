@@ -1020,10 +1020,9 @@ export interface ApiUsuarioUsuario extends Schema.CollectionType {
     nombre: Attribute.String & Attribute.Required;
     apellido: Attribute.String;
     edad: Attribute.Integer;
-    correo: Attribute.Email;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
     password: Attribute.Password;
     descripcion: Attribute.Text;
-    fotoPerfil: Attribute.Media;
     rol: Attribute.Enumeration<['Estudiante', 'Profesor', 'Administrador']>;
     ocupacion: Attribute.Enumeration<
       [
