@@ -12,38 +12,29 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nombre": {
+    "name": {
       "type": "string",
       "required": true
     },
-    "apellido": {
+    "lastName": {
       "type": "string"
     },
-    "edad": {
+    "age": {
       "type": "integer"
     },
-    "correo": {
-      "type": "email"
+    "email": {
+      "type": "email",
+      "unique": true,
+      "required": true
     },
     "password": {
       "type": "password",
       "required": false
     },
-    "descripcion": {
+    "description": {
       "type": "text"
     },
-    "fotoPerfil": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "rol": {
+    "role": {
       "type": "enumeration",
       "enum": [
         "Estudiante",
@@ -51,7 +42,7 @@
         "Administrador"
       ]
     },
-    "ocupacion": {
+    "occupation": {
       "type": "enumeration",
       "enum": [
         "Ingeniero de Software",
@@ -86,23 +77,23 @@
         "Veterinario"
       ]
     },
-    "actividadCreador": {
+    "activityCreator": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::actividad.actividad",
-      "inversedBy": "usuario_creador"
+      "inversedBy": "userCreator"
     },
-    "usuarioComentarios": {
+    "commentUser": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comentario.comentario",
-      "mappedBy": "usuarioComentario"
+      "mappedBy": "userComment"
     },
-    "cursoInstructor": {
+    "courseInstructor": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::curso.curso",
-      "mappedBy": "usuarioInstructor"
+      "mappedBy": "userIntructor"
     }
   }
 }

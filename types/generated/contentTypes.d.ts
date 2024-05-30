@@ -590,6 +590,53 @@ export interface PluginContentReleasesReleaseAction
   };
 }
 
+export interface PluginI18NLocale extends Schema.CollectionType {
+  collectionName: 'i18n_locale';
+  info: {
+    singularName: 'locale';
+    pluralName: 'locales';
+    collectionName: 'locales';
+    displayName: 'Locale';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 50;
+        },
+        number
+      >;
+    code: Attribute.String & Attribute.Unique;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'plugin::i18n.locale',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUsersPermissionsPermission
   extends Schema.CollectionType {
   collectionName: 'up_permissions';
@@ -741,53 +788,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
-export interface PluginI18NLocale extends Schema.CollectionType {
-  collectionName: 'i18n_locale';
-  info: {
-    singularName: 'locale';
-    pluralName: 'locales';
-    collectionName: 'locales';
-    displayName: 'Locale';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
-  };
-  attributes: {
-    name: Attribute.String &
-      Attribute.SetMinMax<
-        {
-          min: 1;
-          max: 50;
-        },
-        number
-      >;
-    code: Attribute.String & Attribute.Unique;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'plugin::i18n.locale',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiActividadActividad extends Schema.CollectionType {
   collectionName: 'actividades';
   info: {
@@ -800,15 +800,15 @@ export interface ApiActividadActividad extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    titulo: Attribute.String;
-    descripcion: Attribute.Text;
-    fechaCreacion: Attribute.Date;
-    comentarios: Attribute.Relation<
+    tittle: Attribute.String;
+    description: Attribute.Text;
+    dateCreation: Attribute.Date;
+    comment: Attribute.Relation<
       'api::actividad.actividad',
       'oneToMany',
       'api::comentario.comentario'
     >;
-    usuario_creador: Attribute.Relation<
+    userCreator: Attribute.Relation<
       'api::actividad.actividad',
       'oneToOne',
       'api::usuario.usuario'
@@ -843,9 +843,9 @@ export interface ApiCategoriaCategoria extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    descripcion: Attribute.Text;
-    nombre: Attribute.String;
-    cursosCateogoria: Attribute.Relation<
+    description: Attribute.Text;
+    name: Attribute.String;
+    courseCategory: Attribute.Relation<
       'api::categoria.categoria',
       'manyToMany',
       'api::curso.curso'
@@ -880,19 +880,19 @@ export interface ApiComentarioComentario extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    contenido: Attribute.Text;
-    usuarioComentario: Attribute.Relation<
+    content: Attribute.Text;
+    userComment: Attribute.Relation<
       'api::comentario.comentario',
       'manyToOne',
       'api::usuario.usuario'
     >;
-    fechaCreacion: Attribute.Date;
-    cursosComentario: Attribute.Relation<
+    dateCreation: Attribute.Date;
+    courseComment: Attribute.Relation<
       'api::comentario.comentario',
       'manyToOne',
       'api::curso.curso'
     >;
-    actividadesComentarios: Attribute.Relation<
+    activititesComment: Attribute.Relation<
       'api::comentario.comentario',
       'manyToOne',
       'api::actividad.actividad'
@@ -927,28 +927,28 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    titulo: Attribute.String;
-    descripcion: Attribute.Text;
-    fechaCreacion: Attribute.Date;
-    usuarioInstructor: Attribute.Relation<
+    tittle: Attribute.String;
+    description: Attribute.Text;
+    dateCreation: Attribute.Date;
+    userIntructor: Attribute.Relation<
       'api::curso.curso',
       'oneToOne',
       'api::usuario.usuario'
     >;
-    lecciones: Attribute.Relation<
+    lessons: Attribute.Relation<
       'api::curso.curso',
       'oneToMany',
       'api::leccion.leccion'
     >;
-    comentarios: Attribute.Relation<
-      'api::curso.curso',
-      'oneToMany',
-      'api::comentario.comentario'
-    >;
-    categorias: Attribute.Relation<
+    categories: Attribute.Relation<
       'api::curso.curso',
       'manyToMany',
       'api::categoria.categoria'
+    >;
+    comment: Attribute.Relation<
+      'api::curso.curso',
+      'oneToMany',
+      'api::comentario.comentario'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -974,15 +974,16 @@ export interface ApiLeccionLeccion extends Schema.CollectionType {
     singularName: 'leccion';
     pluralName: 'lecciones';
     displayName: 'leccion';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    titulo: Attribute.String;
-    contenido: Attribute.Text;
-    orden: Attribute.Integer;
-    curso: Attribute.Relation<
+    tittle: Attribute.String;
+    content: Attribute.Text;
+    order: Attribute.Integer;
+    course: Attribute.Relation<
       'api::leccion.leccion',
       'manyToOne',
       'api::curso.curso'
@@ -1017,15 +1018,14 @@ export interface ApiUsuarioUsuario extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    nombre: Attribute.String & Attribute.Required;
-    apellido: Attribute.String;
-    edad: Attribute.Integer;
-    correo: Attribute.Email;
+    name: Attribute.String & Attribute.Required;
+    lastName: Attribute.String;
+    age: Attribute.Integer;
+    email: Attribute.Email & Attribute.Required & Attribute.Unique;
     password: Attribute.Password;
-    descripcion: Attribute.Text;
-    fotoPerfil: Attribute.Media;
-    rol: Attribute.Enumeration<['Estudiante', 'Profesor', 'Administrador']>;
-    ocupacion: Attribute.Enumeration<
+    description: Attribute.Text;
+    role: Attribute.Enumeration<['Estudiante', 'Profesor', 'Administrador']>;
+    occupation: Attribute.Enumeration<
       [
         'Ingeniero de Software',
         'M\u00E9dico',
@@ -1059,17 +1059,17 @@ export interface ApiUsuarioUsuario extends Schema.CollectionType {
         'Veterinario'
       ]
     >;
-    actividadCreador: Attribute.Relation<
+    activityCreator: Attribute.Relation<
       'api::usuario.usuario',
       'oneToOne',
       'api::actividad.actividad'
     >;
-    usuarioComentarios: Attribute.Relation<
+    commentUser: Attribute.Relation<
       'api::usuario.usuario',
       'oneToMany',
       'api::comentario.comentario'
     >;
-    cursoInstructor: Attribute.Relation<
+    courseInstructor: Attribute.Relation<
       'api::usuario.usuario',
       'oneToOne',
       'api::curso.curso'
@@ -1106,10 +1106,10 @@ declare module '@strapi/types' {
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
+      'plugin::i18n.locale': PluginI18NLocale;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
-      'plugin::i18n.locale': PluginI18NLocale;
       'api::actividad.actividad': ApiActividadActividad;
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::comentario.comentario': ApiComentarioComentario;

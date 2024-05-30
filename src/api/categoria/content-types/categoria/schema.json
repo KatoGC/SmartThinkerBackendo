@@ -12,17 +12,17 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "descripcion": {
+    "description": {
       "type": "text"
     },
-    "nombre": {
+    "name": {
       "type": "string"
     },
-    "cursosCateogoria": {
+    "courseCategory": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::curso.curso",
-      "inversedBy": "categorias"
+      "inversedBy": "categories"
     }
   }
 }

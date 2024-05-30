@@ -12,29 +12,29 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "contenido": {
+    "content": {
       "type": "text"
     },
-    "usuarioComentario": {
+    "userComment": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::usuario.usuario",
-      "inversedBy": "usuarioComentarios"
+      "inversedBy": "commentUser"
     },
-    "fechaCreacion": {
+    "dateCreation": {
       "type": "date"
     },
-    "cursosComentario": {
+    "courseComment": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::curso.curso",
-      "inversedBy": "comentarios"
+      "inversedBy": "comment"
     },
-    "actividadesComentarios": {
+    "activititesComment": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::actividad.actividad",
-      "inversedBy": "comentarios"
+      "inversedBy": "comment"
     }
   }
 }

@@ -12,26 +12,26 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "titulo": {
+    "tittle": {
       "type": "string"
     },
-    "descripcion": {
+    "description": {
       "type": "text"
     },
-    "fechaCreacion": {
+    "dateCreation": {
       "type": "date"
     },
-    "comentarios": {
+    "comment": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comentario.comentario",
-      "mappedBy": "actividadesComentarios"
+      "mappedBy": "activititesComment"
     },
-    "usuario_creador": {
+    "userCreator": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::usuario.usuario",
-      "mappedBy": "actividadCreador"
+      "mappedBy": "activityCreator"
     }
   }
 }
