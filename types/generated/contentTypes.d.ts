@@ -800,7 +800,7 @@ export interface ApiActividadActividad extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    tittle: Attribute.String;
+    title: Attribute.String;
     description: Attribute.Text;
     dateCreation: Attribute.Date;
     comment: Attribute.Relation<
@@ -927,7 +927,7 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    tittle: Attribute.String;
+    title: Attribute.String;
     description: Attribute.Text;
     dateCreation: Attribute.Date;
     userIntructor: Attribute.Relation<
@@ -980,7 +980,7 @@ export interface ApiLeccionLeccion extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    tittle: Attribute.String;
+    title: Attribute.String;
     content: Attribute.Text;
     order: Attribute.Integer;
     course: Attribute.Relation<

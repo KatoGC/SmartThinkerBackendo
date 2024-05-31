@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comentarios",
+  "info": {
+    "singularName": "comentario",
+    "pluralName": "comentarios",
+    "displayName": "comentario",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contenido": {
+      "type": "text"
+    },
+    "usuarioComentario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::usuario.usuario",
+      "inversedBy": "usuarioComentarios"
+    },
+    "fechaCreacion": {
+      "type": "date"
+    },
+    "cursosComentario": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::curso.curso",
+      "inversedBy": "comentarios"
+    },
+    "actividadesComentarios": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::actividad.actividad",
+      "inversedBy": "comentarios"
+    }
+  }
+}

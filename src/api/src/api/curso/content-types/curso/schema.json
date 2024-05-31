@@ -12,38 +12,38 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "titulo": {
       "type": "string"
     },
-    "description": {
+    "descripcion": {
       "type": "text"
     },
-    "dateCreation": {
+    "fechaCreacion": {
       "type": "date"
     },
-    "userIntructor": {
+    "usuarioInstructor": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::usuario.usuario",
-      "inversedBy": "courseInstructor"
+      "inversedBy": "cursoInstructor"
     },
-    "lessons": {
+    "lecciones": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::leccion.leccion",
-      "mappedBy": "course"
+      "mappedBy": "curso"
     },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::categoria.categoria",
-      "mappedBy": "courseCategory"
-    },
-    "comment": {
+    "comentarios": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comentario.comentario",
-      "mappedBy": "courseComment"
+      "mappedBy": "cursosComentario"
+    },
+    "categorias": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::categoria.categoria",
+      "mappedBy": "cursosCateogoria"
     }
   }
 }

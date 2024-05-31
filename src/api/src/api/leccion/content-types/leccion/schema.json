@@ -4,28 +4,27 @@
   "info": {
     "singularName": "leccion",
     "pluralName": "lecciones",
-    "displayName": "leccion",
-    "description": ""
+    "displayName": "leccion"
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "titulo": {
       "type": "string"
     },
-    "content": {
+    "contenido": {
       "type": "text"
     },
-    "order": {
+    "orden": {
       "type": "integer"
     },
-    "course": {
+    "curso": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::curso.curso",
-      "inversedBy": "lessons"
+      "inversedBy": "lecciones"
     }
   }
 }
