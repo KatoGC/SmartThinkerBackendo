@@ -26,12 +26,6 @@
       "relation": "oneToMany",
       "target": "api::comentario.comentario",
       "mappedBy": "activititesComment"
-    },
-    "userCreator": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::usuario.usuario",
-      "mappedBy": "activityCreator"
     }
   }
 }

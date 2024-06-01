@@ -21,12 +21,6 @@
     "dateCreation": {
       "type": "date"
     },
-    "userIntructor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::usuario.usuario",
-      "inversedBy": "courseInstructor"
-    },
     "lessons": {
       "type": "relation",
       "relation": "oneToMany",

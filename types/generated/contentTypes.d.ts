@@ -742,7 +742,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -771,6 +770,9 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    occupation: Attribute.String;
+    age: Attribute.Integer;
+    description: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -807,11 +809,6 @@ export interface ApiActividadActividad extends Schema.CollectionType {
       'api::actividad.actividad',
       'oneToMany',
       'api::comentario.comentario'
-    >;
-    userCreator: Attribute.Relation<
-      'api::actividad.actividad',
-      'oneToOne',
-      'api::usuario.usuario'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -881,11 +878,6 @@ export interface ApiComentarioComentario extends Schema.CollectionType {
   };
   attributes: {
     content: Attribute.Text;
-    userComment: Attribute.Relation<
-      'api::comentario.comentario',
-      'manyToOne',
-      'api::usuario.usuario'
-    >;
     dateCreation: Attribute.Date;
     courseComment: Attribute.Relation<
       'api::comentario.comentario',
@@ -930,11 +922,6 @@ export interface ApiCursoCurso extends Schema.CollectionType {
     title: Attribute.String;
     description: Attribute.Text;
     dateCreation: Attribute.Date;
-    userIntructor: Attribute.Relation<
-      'api::curso.curso',
-      'oneToOne',
-      'api::usuario.usuario'
-    >;
     lessons: Attribute.Relation<
       'api::curso.curso',
       'oneToMany',
@@ -1006,92 +993,6 @@ export interface ApiLeccionLeccion extends Schema.CollectionType {
   };
 }
 
-export interface ApiUsuarioUsuario extends Schema.CollectionType {
-  collectionName: 'usuarios';
-  info: {
-    singularName: 'usuario';
-    pluralName: 'usuarios';
-    displayName: 'usuario';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    lastName: Attribute.String;
-    age: Attribute.Integer;
-    email: Attribute.Email & Attribute.Required & Attribute.Unique;
-    password: Attribute.Password;
-    description: Attribute.Text;
-    role: Attribute.Enumeration<['Estudiante', 'Profesor', 'Administrador']>;
-    occupation: Attribute.Enumeration<
-      [
-        'Ingeniero de Software',
-        'M\u00E9dico',
-        'Profesor',
-        'Estudiante',
-        'Abogado',
-        'Dise\u00F1ador Gr\u00E1fico',
-        'Contador',
-        'Administrador de Empresas',
-        'Enfermero',
-        'Psic\u00F3logo',
-        'Arquitecto',
-        'Cient\u00EDfico',
-        'Escritor',
-        'Periodista',
-        'M\u00FAsico',
-        'Artista',
-        'Consultor',
-        'Gerente de Proyecto',
-        'Analista de Datos',
-        'Desarrollador Web',
-        'Marketing',
-        'Recursos Humanos',
-        'Ventas',
-        'Chef',
-        'Electricista',
-        'Fontanero',
-        'Carpintero',
-        'Piloto',
-        'Mec\u00E1nico',
-        'Veterinario'
-      ]
-    >;
-    activityCreator: Attribute.Relation<
-      'api::usuario.usuario',
-      'oneToOne',
-      'api::actividad.actividad'
-    >;
-    commentUser: Attribute.Relation<
-      'api::usuario.usuario',
-      'oneToMany',
-      'api::comentario.comentario'
-    >;
-    courseInstructor: Attribute.Relation<
-      'api::usuario.usuario',
-      'oneToOne',
-      'api::curso.curso'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::usuario.usuario',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::usuario.usuario',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -1115,7 +1016,6 @@ declare module '@strapi/types' {
       'api::comentario.comentario': ApiComentarioComentario;
       'api::curso.curso': ApiCursoCurso;
       'api::leccion.leccion': ApiLeccionLeccion;
-      'api::usuario.usuario': ApiUsuarioUsuario;
     }
   }
 }

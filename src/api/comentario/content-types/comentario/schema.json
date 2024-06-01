@@ -15,12 +15,6 @@
     "content": {
       "type": "text"
     },
-    "userComment": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::usuario.usuario",
-      "inversedBy": "commentUser"
-    },
     "dateCreation": {
       "type": "date"
     },
